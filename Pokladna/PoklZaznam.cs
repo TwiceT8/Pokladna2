@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pokladna
 {
-    class PoklZaznam
+    public class PoklZaznam
     {
         public int IdPoklZaznam { get; set; }
         public int Cislo { get; set; }
