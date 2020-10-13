@@ -13,6 +13,7 @@ namespace Pokladna
     public partial class Form1 : Form
     {
         List<PoklZaznam> pokladna;
+        IRepos repositar;
         public Form1()
         {
             InitializeComponent();
@@ -20,7 +21,12 @@ namespace Pokladna
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            pokladna = 
+            JsonRepos jsonRepos = new JsonRepos("data.json");
+            jsonRepos.VytvorTestData();
+            repositar = jsonRepos;
+            //repositar = new SqlRepos();
+            //repositar = new XmlRepos();
+            //pokladna = repositar.NactiVse();
         }
     }
 }
