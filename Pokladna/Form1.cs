@@ -26,7 +26,16 @@ namespace Pokladna
             repositar = jsonRepos;
             //repositar = new SqlRepos();
             //repositar = new XmlRepos();
-            //pokladna = repositar.NactiVse();
+            pokladna = repositar.NactiVse();
+            foreach (var p in pokladna)
+            {
+                listView1.Items.Add(p.DoLvItem());
+            }
+        }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

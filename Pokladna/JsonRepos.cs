@@ -21,18 +21,22 @@ namespace Pokladna
         public void VytvorTestData()
         {
             List<PoklZaznam> ListData = new List<PoklZaznam>();
-            ListData.Add(new PoklZaznam(1, 1, new DateTime(3030, 1, 3), "Příjem z banky",20000,20000,""));
-            ListData.Add(new PoklZaznam(2, 2, new DateTime(3030, 1, 5), "Tenisové míče", -2356, ListData.Last().Zustatek-2356, ""));
-            ListData.Add(new PoklZaznam(3, 3, new DateTime(3030, 1, 7), "Občerstvení", -8500, ListData.Last().Zustatek -8500, ""));
-            ListData.Add(new PoklZaznam(4, 4, new DateTime(3030, 1, 9), "Pronájem hřiště", 10000, ListData.Last().Zustatek +10000, ""));
-            ListData.Add(new PoklZaznam(5, 5, new DateTime(3030, 1, 11), "Platba zaměstnancům", -15000, ListData.Last().Zustatek -15000, ""));
+            ListData.Add(new PoklZaznam(1, 1, new DateTime(2020, 1, 3), "Příjem z banky",20000,20000,""));
+            ListData.Add(new PoklZaznam(2, 2, new DateTime(2020, 1, 5), "Tenisové míče", -2356, ListData.Last().Zustatek-2356, ""));
+            ListData.Add(new PoklZaznam(3, 3, new DateTime(2020, 1, 7), "Občerstvení", -8500, ListData.Last().Zustatek -8500, ""));
+            ListData.Add(new PoklZaznam(4, 4, new DateTime(2020, 1, 9), "Pronájem hřiště", 10000, ListData.Last().Zustatek +10000, ""));
+            ListData.Add(new PoklZaznam(5, 5, new DateTime(2020, 1, 11), "Platba zaměstnancům", -15000, ListData.Last().Zustatek -15000, ""));
 
             string json = JsonConvert.SerializeObject(ListData);
             File.WriteAllText(datovySoubor, json);
         }
+
+
         public List<PoklZaznam> NactiVse()
         {
-            throw new NotImplementedException();
+            List<PoklZaznam> data;
+            data = JsonConvert.DeserializeObject<List<PoklZaznam>>(File.ReadAllText(datovySoubor));
+            return data;
         }
 
         public PoklZaznam NactiZaznam(int idPokladniZaznam)
