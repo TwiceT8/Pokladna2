@@ -8,6 +8,11 @@ namespace Pokladna
 {
     public class SqlRepos : IRepos
     {
+        public List<PoklZaznam> Nactimesic(int rok, int mesic)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<PoklZaznam> NactiVse()
         {
             throw new NotImplementedException();

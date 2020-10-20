@@ -63,5 +63,10 @@ namespace Pokladna
         {
             throw new NotImplementedException();
         }
+
+        public List<PoklZaznam> Nactimesic(int rok, int mesic)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +58,13 @@ namespace Pokladna
         public PoklZaznam Vytvorzaznam(PoklZaznam poklZaznam)
         {
             throw new NotImplementedException();
+        }
+
+        public List<PoklZaznam> Nactimesic(int rok, int mesic)
+        {
+            List<PoklZaznam> data = NactiVse();
+            return data.FindAll(prvek => prvek.Datum.Year == rok && prvek.Datum.Month == mesic);
+            
         }
     }
 }

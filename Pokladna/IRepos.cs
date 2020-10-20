@@ -10,6 +10,7 @@ namespace Pokladna
     {
          List<PoklZaznam> NactiVse();
         PoklZaznam NactiZaznam(int idPokladniZaznam);
+        List<PoklZaznam> Nactimesic(int rok, int mesic);
         PoklZaznam Vytvorzaznam(PoklZaznam poklZaznam);
         void UpravZaznam(PoklZaznam poklZaznam);
         void SmazZaznam(PoklZaznam poklZaznam);
