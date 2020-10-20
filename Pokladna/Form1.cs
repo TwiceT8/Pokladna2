@@ -57,7 +57,34 @@ namespace Pokladna
                     listView1.Items.Add(p.DoLvItem());
                 }
             }
+        }
 
+        private void txtDoklad_TextChanged(object sender, EventArgs e)
+        {
+            btnUloz.Enabled = txtDoklad.Text!="";
+        }
+
+        private void txtPopis_TextChanged(object sender, EventArgs e)
+        {
+            btnNovy.Enabled = txtPopis.Text.Trim() != "" && numericCastka.Value != 0;
+        }
+
+        private void numericCastka_ValueChanged(object sender, EventArgs e)
+        {
+            btnNovy.Enabled = txtPopis.Text.Trim() != "" && numericCastka.Value != 0;
+        }
+
+        private void btnNovy_Click(object sender, EventArgs e)
+        {
+            listView1.Items.Clear();
+            PoklZaznam novyZaznam = new PoklZaznam(dtp.Value
+                                                , txtPopis.Text
+                                                , (double)numericCastka.Value
+                                                , txtPoznamka.Text);
+            repositar.Vytvorzaznam(novyZaznam);
+            txtPopis.Text = "";
+            numericCastka.Value = 0;
+            txtPoznamka.Text = "";
         }
     }
 }

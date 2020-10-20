@@ -32,6 +32,17 @@ namespace Pokladna
             Poznamka = poznamka;
         }
 
+        public PoklZaznam(DateTime datum, string popis, double castka,string poznamka)
+        {
+            IdPoklZaznam = -1;
+            Cislo = -1;
+            Datum = datum;
+            Popis = popis;
+            Castka = castka;
+            Zustatek = -1;
+            Poznamka = poznamka;
+        }
+
         public ListViewItem DoLvItem()
         {
 

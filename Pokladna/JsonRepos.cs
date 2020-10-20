@@ -57,14 +57,67 @@ namespace Pokladna
 
         public PoklZaznam Vytvorzaznam(PoklZaznam poklZaznam)
         {
-            throw new NotImplementedException();
+            List<PoklZaznam> data = NactiVse();
+            //zazanm aje poslední
+            if(data.Find(doklad => doklad.Datum > poklZaznam.Datum)==null)
+            {
+                data.Sort((a,b) => a.IdPoklZaznam.CompareTo(b.IdPoklZaznam));
+                poklZaznam.IdPoklZaznam =data.Last().IdPoklZaznam+1;
+                    data.Sort((a, b) => a.Datum.CompareTo(b.Datum));
+                poklZaznam.Cislo = data.Last().Datum.Month==poklZaznam.Datum.Month? data.Last().Cislo + 1:1;
+                poklZaznam.Zustatek = data.Last().Zustatek + poklZaznam.Castka;
+                
+
+            }
+            //záznam není poslední
+            else
+            {
+                //Id bude nejvyšší +1
+                data.Sort((a, b) => a.IdPoklZaznam.CompareTo(b.IdPoklZaznam));
+                poklZaznam.IdPoklZaznam = data.Last().IdPoklZaznam + 1;
+                //cislo bude o jedna vyssi nez posledni ve stejnem mesici
+                List<PoklZaznam> dataMesice = data.FindAll(doklad => doklad.Datum.Year == poklZaznam.Datum.Year
+                                                                  && doklad.Datum.Month == poklZaznam.Datum.Month);
+                dataMesice.Sort((a, b) => a.Datum.CompareTo(b.Datum));
+                if (dataMesice.Count > 0)
+                {
+                    if (dataMesice.Find(doklad => doklad.Datum > poklZaznam.Datum) == null)
+                    //je posledni v mesici
+                    {
+                        poklZaznam.Cislo = dataMesice.Last().Cislo + 1;
+                    }
+                    else
+                    {
+                        int index = dataMesice.FindIndex(doklad => doklad.Datum > poklZaznam.Datum);                       
+                        poklZaznam.Cislo = dataMesice[index].Cislo;
+                        for (int i = index; i < dataMesice.Count; i++)
+                        {
+                            dataMesice[i].Cislo++;
+                        }
+
+                    }
+                }
+                else
+                {
+                    poklZaznam.Cislo = 1;
+                }
+                //zustatek je 
+            }
+            data.Add(poklZaznam);
+
+            string json = JsonConvert.SerializeObject(data);
+            File.WriteAllText(datovySoubor, json);
+            return poklZaznam;
         }
 
         public List<PoklZaznam> Nactimesic(int rok, int mesic)
         {
             List<PoklZaznam> data = NactiVse();
-            return data.FindAll(prvek => prvek.Datum.Year == rok && prvek.Datum.Month == mesic);
+            data.FindAll(prvek => prvek.Datum.Year == rok && prvek.Datum.Month == mesic);
+            data.Sort((a, b) => a.Datum.CompareTo(b.Datum));
+            return data;
             
+
         }
     }
 }
