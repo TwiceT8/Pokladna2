@@ -27,18 +27,22 @@ namespace Pokladna
             XmlRepos xmlRepos = new XmlRepos("data.xml");
             xmlRepos.VytvorTestData();
 
-            repositar = jsonRepos;
-            //repositar = sqlRepos;
+            SqlRepos sqlRepos = new SqlRepos();
+            
+
+
+            //repositar = jsonRepos;
+            repositar = sqlRepos;
             //repositar = xmlRepos;
 
             cBoxRok.SelectedIndex = cBoxRok.Items.IndexOf(DateTime.Now.Year.ToString());
             cBoxMesic.SelectedIndex = DateTime.Now.Month-1;
 
-            //pokladna = repositar.NactiVse();
-            //foreach (var p in pokladna)
-            //{
-            //    listView1.Items.Add(p.DoLvItem());
-            //}
+            pokladna = repositar.NactiVse();
+            foreach (var p in pokladna)
+            {
+                listView1.Items.Add(p.DoLvItem());
+            }
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,7 +54,8 @@ namespace Pokladna
         {
             if (cBoxMesic.SelectedIndex >= 0 && cBoxRok.SelectedIndex >= 0)
             {
-                pokladna = repositar.Nactimesic(int.Parse(cBoxRok.SelectedItem.ToString()), cBoxMesic.SelectedIndex + 1);
+                //pokladna = repositar.Nactimesic(int.Parse(cBoxRok.SelectedItem.ToString()), cBoxMesic.SelectedIndex + 1);
+                pokladna = repositar.NactiVse();
                 listView1.Items.Clear();
                 foreach (var p in pokladna)
                 {
